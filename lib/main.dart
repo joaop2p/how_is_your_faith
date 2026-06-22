@@ -16,7 +16,6 @@ void main() async {
   Supabase.instance.client.auth.onAuthStateChange.listen((data) {
     final session = data.session;
     if (session != null) {
-      // Usuário logado → navega para Home
       navigatorKey.currentState?.pushReplacement(
         MaterialPageRoute(builder: (_) => Home()),
       );
