@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:how_is_your_faith/main.dart';
 import 'ui/pages/auth.dart';
 
 class App extends StatelessWidget {
@@ -15,6 +16,7 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      navigatorKey: navigatorKey,
       home: Auth(),
     );
   }
