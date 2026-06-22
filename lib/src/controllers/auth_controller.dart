@@ -27,11 +27,11 @@ class AuthController {
     return _supabase.auth.signInWithPassword(email: email, password: password);
   }
 
-  Future<bool> signInWithGoogle() async {
-   return await _supabase.auth.signInWithOAuth(
-     OAuthProvider.google,
-     redirectTo: kIsWeb ? null : 'io.supabase.flutter://login-callback/',
-   );
+  Future<void> signInWithGoogle() async {
+    await Supabase.instance.client.auth.signInWithOAuth(
+      OAuthProvider.google,
+      redirectTo: kIsWeb ? null : 'io.supabase.flutter://login-callback/',
+    );
   }
 
   Future<void> signOut() {
