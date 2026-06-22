@@ -13,28 +13,10 @@ class AuthController {
 
   Stream<AuthState> get authStateChanges => _supabase.auth.onAuthStateChange;
 
-  Future<AuthResponse> signUp({
-    required String email,
-    required String password,
-  }) {
-    return _supabase.auth.signUp(email: email, password: password);
-  }
-
-  Future<AuthResponse> signIn({
-    required String email,
-    required String password,
-  }) {
-    return _supabase.auth.signInWithPassword(email: email, password: password);
-  }
-
   Future<void> signInWithGoogle() async {
     await Supabase.instance.client.auth.signInWithOAuth(
       OAuthProvider.google,
       redirectTo: kIsWeb ? null : 'io.supabase.flutter://login-callback/',
     );
-  }
-
-  Future<void> signOut() {
-    return _supabase.auth.signOut();
   }
 }

@@ -1,9 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:how_is_your_faith/src/controllers/auth_controller.dart';
-import 'package:how_is_your_faith/src/ui/pages/home.dart';
-import 'package:how_is_your_faith/src/ui/widgets/home/banner.dart';
-import 'package:how_is_your_faith/src/ui/widgets/home/cards.dart';
-import 'package:how_is_your_faith/src/ui/widgets/home/footer.dart';
+import 'package:how_is_your_faith/src/ui/widgets/auth/banner.dart';
+import 'package:how_is_your_faith/src/ui/widgets/auth/cards.dart';
+import 'package:how_is_your_faith/src/ui/widgets/auth/footer.dart';
 
 class Auth extends StatelessWidget {
   Auth({super.key});
@@ -32,33 +31,9 @@ class Auth extends StatelessWidget {
     },
   ];
 
-  void simulateLogin(BuildContext context) {
-    // Simula um processo de login
-    Future.delayed(const Duration(seconds: 2), () {
-      // Após o delay, navega para a próxima tela ou exibe uma mensagem de sucesso
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
-    });
-  }
-
   Future<void> handleGoogleSignIn(BuildContext context) async {
-    // Simula um processo de login com Google
     AuthController authController = AuthController();
-    bool success = await authController.signInWithGoogle();
-    if (success) {
-      // Se o login for bem-sucedido, navega para a próxima tela
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
-    } else {
-      // Se o login falhar, exibe uma mensagem de erro
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Falha ao fazer login com Google.')),
-      );
-    }
+    await authController.signInWithGoogle();
   }
 
   @override
@@ -83,7 +58,7 @@ class Auth extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: () => simulateLogin(context),
+            onPressed: () => handleGoogleSignIn(context),
             style: ElevatedButton.styleFrom(
               maximumSize: Size(MediaQuery.of(context).size.width - 40, 50),
               backgroundColor: const Color.fromARGB(255, 9, 22, 37),
@@ -128,24 +103,21 @@ class Auth extends StatelessWidget {
               Icon(
                 Icons.verified_user_outlined,
                 size: 16,
-                color: Colors.black..withValues(alpha:0.6),
+                color: Colors.black..withValues(alpha: 0.6),
               ),
               const SizedBox(width: 8),
               Text(
                 'Suas informações estão seguras conosco.',
                 style: TextStyle(
-                  color: Colors.black..withValues(alpha:0.6),
+                  color: Colors.black..withValues(alpha: 0.6),
                   fontSize: 12,
                 ),
               ),
             ],
           ),
-          Expanded(
-            child: Footer(),
-          ),
+          Expanded(child: Footer()),
         ],
       ),
     );
   }
 }
-
