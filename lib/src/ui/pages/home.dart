@@ -1,6 +1,6 @@
-import "dart:math" as math;
 
 import "package:flutter/material.dart";
+import "package:how_is_your_faith/src/ui/widgets/home/verse_card.dart";
 import "package:how_is_your_faith/src/utils/vars.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 import "package:how_is_your_faith/src/controllers/bible_vers_controller.dart";
@@ -92,105 +92,23 @@ class Home extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             // Aqui ficará um card com o versículo do dia, ou algo do tipo para incentivar o usuário a usar o app diariamente
-            Container(
-              padding: EdgeInsets.all(16.0),
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 10,
-                    offset: Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Stack(
-                children: [
-                  Image.asset(
-                    "assets/images/home/banner.png",
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: double.infinity,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(4.0),
-                        alignment: Alignment.centerLeft,
-                        width: 130,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(58, 171, 169, 246),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.menu_book_sharp,
-                              color: Color.fromARGB(255, 146, 144, 252),
-                              size: 16,
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              'Versículo do dia',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 146, 144, 252),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Transform(
-                        alignment: Alignment.center,
-                        transform: Matrix4.rotationY(math.pi),
-                        child: Icon(
-                          Icons.format_quote,
-                          color: Color.fromARGB(255, 146, 144, 252),
-                          size: 40,
-                        ),
-                      ),
-
-                      // SizedBox(height: 10),
-                      FutureBuilder<String>(
-                        future: BibleVersController.getBibleVerse(
-                          "john",
-                          3,
-                          16,
-                        ),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text('Erro ao carregar o versículo');
-                          } else {
-                            return Text(
-                              snapshot.data ?? 'Versículo não encontrado.',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                      Text(
-                        'João 3:16',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color.fromARGB(255, 146, 144, 252),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            FutureBuilder<Map<String, dynamic>>(
+              future: BibleVersController.getTodayVerse(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  debugPrint('Erro ao carregar versículo: ${snapshot.error}');
+                  return const Text('Não foi possível carregar o versículo.');
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Text('Nenhum versículo encontrado.');
+                } else {
+                  final verseData = snapshot.data!;
+                  final verseText = verseData['text'] ?? '';
+                  final verseReference = verseData['reference'] ?? '';
+                  return VerseCard(verse: verseText, reference: verseReference);
+                }
+              },
             ),
             const SizedBox(height: 30),
             Row(
