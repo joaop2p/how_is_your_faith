@@ -65,21 +65,21 @@ class VerseCard extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(58, 171, 169, 246),
+                    color: Color.fromARGB(58, 214, 174, 108),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
                     children: [
                       Icon(
                         Icons.menu_book_sharp,
-                        color: Color.fromARGB(255, 146, 144, 252),
+                        color: Color(0xFFD6AE6C),
                         size: 16,
                       ),
                       SizedBox(width: 4),
                       Text(
                         'Versículo do dia',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 146, 144, 252),
+                          color: Color(0xFFD6AE6C),
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -93,17 +93,17 @@ class VerseCard extends StatelessWidget {
                   transform: Matrix4.rotationY(math.pi),
                   child: Icon(
                     Icons.format_quote,
-                    color: Color.fromARGB(255, 146, 144, 252),
-                    size: 40,
+                    color: Color(0xFFD6AE6C),
+                    size: 30,
                   ),
                 ),
-                SizedBox(height: 12),
+                // SizedBox(height: 5),
                 Text(
                   verse,
                   softWrap: true,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontStyle: FontStyle.italic,
                     color: Colors.black87,
                   ),
@@ -111,10 +111,7 @@ class VerseCard extends StatelessWidget {
                 SizedBox(height: 8),
                 Text(
                   reference,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color.fromARGB(255, 146, 144, 252),
-                  ),
+                  style: TextStyle(fontSize: 14, color: Color(0xFFD6AE6C)),
                 ),
               ],
             ),
