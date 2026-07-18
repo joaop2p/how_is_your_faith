@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:how_is_your_faith/src/ui/pages/home.dart';
+import 'package:how_is_your_faith/src/ui/pages/home_page.dart';
+import 'package:how_is_your_faith/src/ui/pages/views/init.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'src/app.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -17,7 +18,7 @@ void main() async {
     final session = data.session;
     if (session != null) {
       navigatorKey.currentState?.pushReplacement(
-        MaterialPageRoute(builder: (_) => Home()),
+        MaterialPageRoute(builder: (_) => HomePage()),
       );
     }
   });
