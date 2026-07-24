@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:how_is_your_faith/src/ui/pages/views/init.dart';
+import 'package:how_is_your_faith/src/ui/screens/views/init.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
