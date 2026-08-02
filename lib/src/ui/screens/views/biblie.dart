@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:how_is_your_faith/src/ui/widgets/bible/books_by_testament_view.dart';
+import 'package:how_is_your_faith/src/controllers/bible_vers_controller.dart';
 
-class BibleScreen extends StatelessWidget {
+class BibleScreen extends StatefulWidget {
   const BibleScreen({super.key});
+
+  @override
+  State<BibleScreen> createState() => _BibleScreenState();
+}
+
+class _BibleScreenState extends State<BibleScreen> {
+  late final Future<List<Map<String, dynamic>>> _booksFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _booksFuture = BibleVersController.getBooks();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +157,6 @@ class BibleScreen extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  // height: 600,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
@@ -155,11 +168,46 @@ class BibleScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: TabBarView(
-                    children: [
-                      BooksByTestamentView(testament: 'old'),
-                      BooksByTestamentView(testament: 'new'),
-                    ],
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: FutureBuilder<List<Map<String, dynamic>>>(
+                      future: _booksFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text(
+                              'Erro ao carregar livros',
+                              style: TextStyle(color: Colors.red.shade400),
+                            ),
+                          );
+                        }
+
+                        final List<Map<String, dynamic>> books =
+                            snapshot.data ?? <Map<String, dynamic>>[];
+
+                        final List<Map<String, dynamic>> oldBooks = books
+                            .where((book) => book['testament'] == 'old')
+                            .toList();
+
+                        final List<Map<String, dynamic>> newBooks = books
+                            .where((book) => book['testament'] == 'new')
+                            .toList();
+
+                        return TabBarView(
+                          children: [
+                            BooksByTestamentView(books: oldBooks),
+                            BooksByTestamentView(books: newBooks),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

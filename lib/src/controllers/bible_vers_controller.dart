@@ -54,4 +54,43 @@ class BibleVersController {
         .map((book) => Map<String, dynamic>.from(book))
         .toList();
   }
+
+  static Future<List<Map<String, dynamic>>> getChapter(
+    String book,
+    int chapter,
+  ) async {
+    final url = Uri.parse('${BiblieApiConfig.baseUrl}/nvi/$book/$chapter');
+    final response = await http.get(url, headers: BiblieApiConfig.hearders);
+
+    if (response.statusCode != 200) {
+      throw BibleApiException('Falha ao carregar os capítulos do livro $book');
+    }
+
+    final Map<String, dynamic> body = json.decode(response.body);
+    final dynamic data = body['data'];
+
+    if (data is! Map<String, dynamic>) {
+      throw BibleApiException('Formato inválido ao carregar capítulo de $book');
+    }
+
+    final dynamic versesRaw = data['verses'];
+
+    if (versesRaw is! List) {
+      throw BibleApiException(
+        'Versículos inválidos ao carregar capítulo de $book',
+      );
+    }
+
+    return versesRaw.asMap().entries.map((entry) {
+      final int verseNumber = entry.key + 1;
+      final String text = entry.value?.toString() ?? '';
+
+      return <String, dynamic>{'verse_number': verseNumber, 'text': text};
+    }).toList();
+  }
+
+  //       .whereType<Map>()
+  //       .map((verse) => Map<String, dynamic>.from(verse))
+  //       .toList();
+  // }
 }
