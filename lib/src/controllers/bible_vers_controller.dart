@@ -33,4 +33,25 @@ class BibleVersController {
       throw BibleApiException('Falha ao carregar o versículo do dia da Bíblia');
     }
   }
+
+  static Future<List<Map<String, dynamic>>> getBooks() async {
+    final url = Uri.parse('${BiblieApiConfig.baseUrl}/books');
+    final response = await http.get(url, headers: BiblieApiConfig.hearders);
+
+    if (response.statusCode != 200) {
+      throw BibleApiException('Falha ao carregar os livros da Bíblia');
+    }
+
+    final Map<String, dynamic> body = json.decode(response.body);
+    final dynamic data = body['data'];
+
+    if (data is! List) {
+      throw BibleApiException('Formato inválido ao carregar livros da Bíblia');
+    }
+
+    return data
+        .whereType<Map>()
+        .map((book) => Map<String, dynamic>.from(book))
+        .toList();
+  }
 }
