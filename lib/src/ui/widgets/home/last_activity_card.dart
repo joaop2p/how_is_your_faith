@@ -22,7 +22,7 @@ class LastActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -30,21 +30,20 @@ class LastActivityCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Continue de onde parou",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF1C1C1C),
-            ),
-          ),
+          // Text(
+          //   "Continue de onde parou",
+          //   style: TextStyle(
+          //     fontSize: 20,
+          //     fontWeight: FontWeight.w700,
+          //     color: Color(0xFF1C1C1C),
+          //   ),
+          // ),
 
-          const SizedBox(height: 5),
-
+          // const SizedBox(height: 5),
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-              color: theme.light,
+              // color: theme.light,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -92,11 +91,11 @@ class LastActivityCard extends StatelessWidget {
                       ),
                       Text(
                         "Dia $step de $totalSteps • ${(progress * 100).toStringAsFixed(0)}% concluído",
-                        style: TextStyle(fontSize: 12, color: theme.accent),
+                        style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 42, 42, 42)),
                       ),
                       SizedBox(
                         height: 8,
-                        width: double.infinity,
+                        // width: double.infinity,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(4),
                           child: LinearProgressIndicator(

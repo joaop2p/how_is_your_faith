@@ -64,8 +64,9 @@ class VerseCard extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.all(4.0),
+                  width: 130,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(58, 214, 174, 108),
+                    color: Color.fromARGB(87, 223, 203, 171),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(

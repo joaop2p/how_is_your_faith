@@ -6,10 +6,28 @@ import "package:how_is_your_faith/src/utils/vars.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 import "package:how_is_your_faith/src/controllers/bible_vers_controller.dart";
 
-class Start extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final DevotionalColors _theme = DevotionalColors();
+final List<Map<String, dynamic>> devotionalModels = [
+  {
+    "coverUrl":
+        "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=900&q=80",
+    "title": "Esperança para tempos difíceis",
+    "estimatedCompletion": "5 dias",
+  },
+  {
+    "coverUrl":
+        "https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=80",
+    "title": "Paz que excede todo entendimento",
+    "estimatedCompletion": "7 dias",
+  },
+  {
+    "coverUrl":
+        "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?auto=format&fit=crop&w=900&q=80",
+    "title": "Comece bem seu dia",
+    "estimatedCompletion": "3 dias",
+  },
+];
 
+class Start extends StatelessWidget {
   Start({super.key});
   final User user = Supabase.instance.client.auth.currentUser!;
 
@@ -117,33 +135,15 @@ class Start extends StatelessWidget {
               },
             ),
             const SizedBox(height: 5),
-            Row(
-              children: [
-                Text(
-                  "Sua jornada da fé",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                Spacer(),
-                TextButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    //
-                    textStyle: WidgetStateProperty.all(TextStyle(fontSize: 14)),
-                  ),
-                  child: Row(
-                    children: [
-                      Text("Ver tudo"),
-                      SizedBox(width: 4),
-                      Icon(Icons.arrow_forward),
-                    ],
-                  ),
-                ),
-              ],
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: const EdgeInsets.only(top: 10, bottom: 10),
+              child: const Text(
+                "Continue de onde parou",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
-            //TODO: espaço reservado para os indicadores do usuário, como progresso de leitura da bíblia, progresso de oração, sequência de devocionais, etc.
-            const SizedBox(height: 5),
-            Container(height: 100, color: Colors.white),
-            const SizedBox(height: 10),
+
             LastActivityCard(
               theme: DevotionalColors(),
               title: "Fortalecendo sua Fé",
@@ -152,9 +152,77 @@ class Start extends StatelessWidget {
               step: 7,
               totalSteps: 25,
             ),
-            // Aqui ficará uma sugestão de atividade para o usuário, como um devocional, um estudo bíblico, uma oração, etc.
-            const SizedBox(height: 10),
-            Container(height: 100, color: Colors.white),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: const EdgeInsets.only(top: 10, bottom: 10),
+              child: const Text(
+                "Devocionais recomendados",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: devotionalModels.length,
+                itemBuilder: (context, index) {
+                  final devotional = devotionalModels[index];
+                  return Container(
+                    width: 200,
+                    margin: const EdgeInsets.only(right: 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(
+                        image: NetworkImage(devotional["coverUrl"]!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(0.6),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: 120,
+                            child: Text(
+                              devotional["title"]!,
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            devotional["estimatedCompletion"]!,
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
