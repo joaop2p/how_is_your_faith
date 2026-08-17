@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:how_is_your_faith/main.dart';
-import 'ui/screens/auth.dart';
+import 'ui/pages/auth.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -20,7 +20,7 @@ class App extends StatelessWidget {
         useMaterial3: true,
       ),
       navigatorKey: navigatorKey,
-      home: Auth(),
+      home: AuthTest(),
     );
   }
 }

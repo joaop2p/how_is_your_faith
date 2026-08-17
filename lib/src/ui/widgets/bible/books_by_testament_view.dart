@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:how_is_your_faith/src/ui/screens/bible_book_page.dart';
+import 'package:how_is_your_faith/src/ui/pages/bible_book_page.dart';
 
 class BooksByTestamentView extends StatefulWidget {
   const BooksByTestamentView({super.key, required this.books});

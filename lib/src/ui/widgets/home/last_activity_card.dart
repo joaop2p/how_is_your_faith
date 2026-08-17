@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:how_is_your_faith/src/utils/interfaces/themes.dart';
+import 'package:how_is_your_faith/src/core/utils/interfaces/themes.dart';
 
 class LastActivityCard extends StatelessWidget {
   final String status;

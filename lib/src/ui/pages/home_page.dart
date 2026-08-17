@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:how_is_your_faith/src/ui/screens/views/biblie.dart';
-import 'package:how_is_your_faith/src/ui/screens/views/init.dart';
-import 'package:how_is_your_faith/src/utils/interfaces/themes.dart' as T;
+import 'package:how_is_your_faith/src/ui/views/biblie.dart';
+import 'package:how_is_your_faith/src/ui/views/init.dart';
+import 'package:how_is_your_faith/src/core/utils/interfaces/themes.dart' as T;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:how_is_your_faith/src/ui/widgets/home/last_activity_card.dart";
-import "package:how_is_your_faith/src/utils/styles/themes/devotional_theme.dart";
+import "package:how_is_your_faith/src/core/utils/styles/themes/devotional_theme.dart";
 import "package:how_is_your_faith/src/ui/widgets/home/verse_card.dart";
-import "package:how_is_your_faith/src/utils/vars.dart";
+import "package:how_is_your_faith/src/core/utils/vars.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 import "package:how_is_your_faith/src/controllers/bible_vers_controller.dart";
 

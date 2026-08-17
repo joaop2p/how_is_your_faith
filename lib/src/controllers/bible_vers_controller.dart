@@ -1,7 +1,7 @@
-import 'package:how_is_your_faith/src/utils/exceptions/bible_api_exceptions.dart';
+import 'package:how_is_your_faith/src/core/utils/exceptions/bible_api_exceptions.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:how_is_your_faith/src/config/biblie_api_config.dart';
+import 'package:how_is_your_faith/src/core/config/biblie_api_config.dart';
 
 class BibleVersController {
   static Future<String> getBibleVerse(
